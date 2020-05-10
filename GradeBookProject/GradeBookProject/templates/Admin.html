@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
+    <script src="/static/scripts/modernizr-2.6.2.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
+
+    <title></title>
+    <style>
+        .form-group {
+            padding-right: 10px;
+        }
+        /* Full-width input fields */
+        input[type=text], input[type=password], input[type=email] {
+            width: 100%;
+            padding: 15px 50px 15px 10px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+        }
+
+        .select2 .select2-selection--multiple {
+            width: 100% !important;
+            max-width: 635px !important;
+        }
+
+        form{
+            padding-left:25px;
+        }
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        .panelForm1{
+            display:none;
+        }
+        .panelForm2 {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.select2').select2({
+                closeOnSelect: false
+            });
+        });
+
+        $(document).ready(function () {
+            $(".stdAdd").click(function () {
+                $(".panelForm").slideToggle("slow");
+                //$(".panel1").hide();
+            });
+            $(".stdDelete").click(function () {
+                $(".panelForm1").slideToggle("slow");
+                //$(".panel1").hide();
+            });
+            $(".stdRoster").click(function () {
+                $(".panelForm2").slideToggle("slow");
+                //$(".panel1").hide();
+            });
+
+        });
+    </script>
+
+    <script type="text/javascript">
+        
+
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand">GradeBook</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('student') }}">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="sidebar">
+            <a href="#Add" class="active stdAdd"><i class="fa fa-fw fa-user"></i> Add Student</a><hr />
+            <a href="#Delete" class="courses stdDelete"><i class="fa fa-fw fa-user"></i> Delete Student</a><hr />
+            <a href="#Roster" class="grade stdRoster"><i class="fa fa-fw fa-book"></i> Student Roster</a><hr />
+            <a href="#Help" class="help"><i class="fa fa-fw fa-envelope"></i> Help/Support</a><hr />
+        </div>
+
+        <div class="main jumbotron">
+            <div class="panel">
+                <div class="panel-body panelForm">
+                    <h5>Admin: Student Enrollment</h5>
+                    <hr />
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="inputFirstName4">First Name:</label>
+                                <input type="text" class="form-control" id="inputFirstName4" placeholder="First Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputLastName4">Last Name:</label>
+                                <input type="text" class="form-control" id="inputLastName4" placeholder="Last Name" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="inputstudentID">studentID:</label>
+                                <input type="text" class="form-control" id="inputstudentID" placeholder="studentID" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail">Email:</label>
+                                <input type="email" class="form-control" id="inputEmail" placeholder="Email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Course:</label>
+                            <select class="form-control select2 select2-hidden-accessible" multiple="multiple" data-placeholder="Select a Course" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+                                <option> IS 668 Enterprise-Wide Computing - Dr. J.J Feild</option>
+                                <option> IS 672 Computer & Network Security - Dr. Horlali Nogmanova</option>
+                                <option>CIS 693 Electronic Commerce - Dr. Lami Olumenga</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="padding-left:50px; padding-right:50px;">Save</button>
+                    </form>
+                </div>
+
+                <div class="clear"></div>
+                <div class="panel-body panelForm1"><hr />
+                    <h5>Delete Student</h5>
+                    <hr />
+                    <div class="row" style="box-sizing: border-box;border: 1px solid #C0C0C0;">
+                        <div class="col bg-light studentID">StudentID</div>
+                        <div class="col bg-light stdFirstN">First Name</div>
+                        <div class="col bg-light stdLastN">Last Name</div>
+                        <div class="col bg-light stdEmail">Email</div>
+                        <div class="col bg-light stdCourse">Course</div>
+                        <div class="col bg-light"></div>
+                    </div>
+                    <div class="row" style="box-sizing: border-box;border: 1px solid #C0C0C0;">
+                        <div class="col bg-light studentID">{}</div>
+                        <div class="col stdFirstN" style="background-color:#DCDCDC;">{}</div>
+                        <div class="col bg-light stdLastN">{}</div>
+                        <div class="col stdEmail" style="background-color:#DCDCDC;">{}</div>
+                        <div class="col bg-light stdCourse">{}</div>
+                        <div class="col bg-light"><button class="btn btn-link">Delete</button></div>
+                    </div>
+
+                </div>
+                <div class="clear"></div>
+                <div class="panel-body panelForm2"><hr />
+                    <h5>Student Roster</h5>
+                    <hr />
+                    <div class="row" style="box-sizing: border-box;border: 1px solid #C0C0C0;">
+                        <div class="col bg-light studentID">StudentID</div>
+                        <div class="col bg-light stdFirstN">First Name</div>
+                        <div class="col bg-light stdLastN">Last Name</div>
+                        <div class="col bg-light stdEmail">Email</div>
+                        <div class="col bg-light stdCourse">Course</div>
+                        
+                    </div>
+                    <div class="row" style="box-sizing: border-box;border: 1px solid #C0C0C0;">
+                        <div class="col bg-light studentID">{}</div>
+                        <div class="col stdFirstN" style="background-color:#DCDCDC;">{}</div>
+                        <div class="col bg-light stdLastN">{}</div>
+                        <div class="col stdEmail" style="background-color:#DCDCDC;">{}</div>
+                        <div class="col bg-light stdCourse">{}</div>
+                        
+                    </div>
+
+                </div>
+            </div>
+            </div>
+        </div>
+</body>
+</html>
+
