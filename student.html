@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/static/site.css" />
+    <script src="/static/modernizr-2.6.2.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".stdName").click(function () {
+                $(".panel1").slideToggle("slow");
+                //$(".panel1").hide();
+            });
+            $(".stdCourse").click(function () {
+                $(".panel2").slideToggle("slow");
+                //$(".panel1").hide();
+            });
+            $(".stdGrades").click(function () {
+                $(".panel3").slideToggle("slow");
+                //$(".panel1").hide();
+            });
+            $(".logout").click(function () {
+                window.location.href = "/";
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand">GradeBook</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('student') }}">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="sidebar">
+            <a href="#StudentName" class="active stdName"><i class="fa fa-fw fa-user"></i>Name</a><hr />
+            <a href="#courses" class="courses stdCourse"><i class="fa fa-fw fa-book"></i> Courses</a><hr />
+            <a href="#Grades" class="grade stdGrades"><i class="fa fa-fw fa-edit"></i> Grades</a><hr />
+            <a href="#Help" class="help"><i class="fa fa-fw fa-envelope"></i> Help/Support</a><hr />
+            <a href="#logout" class="logout"><i class="fa fa-fw fa-logout"></i> Logout</a><hr />
+        </div>
+
+        <div class="main jumbotron">
+            <div class="panel">
+                <div class="panel-body panel1">
+                    <h5>Student: Basic Information</h5><hr />
+                    <p><i class="fa fa-fw fa-user"></i>{{ student.first_name }} {{ student.last_name }}</p>
+                    <p><i class="fa fa-fw fa-envelope"></i>Email: {{ student.email }}</p>
+                    <p><i class="fa fa-fw fa-edit"></i>ID: {{ student.student_id }}</p>
+                    <p><i class="fa fa-fw fa-book"></i>MAJOR: {{ student.major }}</p>
+                </div>
+                <div class="clear"></div>
+                <div class="panel-body panel2">
+                    <h5>Courses</h5><hr />
+                    <div id="accordion">
+                        <div class="card">
+
+                            <div class="card-header">
+                                <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                                    is668 Enterprise-Wide Computing
+                                </a>
+                            </div>
+
+                            <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                                <div class="card-body container-fluid">
+
+                                    <div class="row table-hover table-bordered">
+                                        <div class="col-8">Total Grade</div>
+
+                                        <div class="col-4 bg-light">{{ student.t_grade }}</div>
+
+                                    </div>
+
+                                    <br />
+                                    <span class="txtAssign">Assignments:</span>
+                                    {% for assignment in Assignment %}
+                                    <div class="row table-hover table-bordered">
+
+                                        <div class="col-8 btn-light">
+                                            <a class="btn btn-default btn-link">
+                                                {{ assignment.assgn_title }}
+                                            </a>
+                                        </div>
+                                        <div class="col-4 bg-transparent">{{ assignment.grade }}</div>
+
+                                    </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <!--Grades Section-->
+            <div class="panel-body panel3">
+                <h5>Grades</h5><hr />
+                <!-- Two Unequal Columns -->
+                <div class="row table-bordered" style="border-color:#bdc4ca; padding:5px;margin-bottom:5px;">
+                    <div class="col-8">IS 668 Enterprise-Wide Computing</div>
+                    <div class="col-4 bg-light">{{ student.t_grade }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

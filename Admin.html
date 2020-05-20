@@ -1,0 +1,273 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/static/site.css" />
+    <script src="/static/modernizr-2.6.2.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.4/css/responsive.bootstrap4.min.css">
+    <script src="https://cdn.datatables.net/responsive/2.2.4/js/responsive.bootstrap4.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js|https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.4/js/dataTables.responsive.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <title></title>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#stdRoster').DataTable({
+                responsive: {
+                    details: {
+                        display: $.fn.dataTable.Responsive.display.modal({
+                            header: function (row) {
+                                var data = row.data();
+                                return 'Details for ' + data[0] + ' ' + data[1];
+                            }
+                        }),
+                        renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                            tableClass: 'table'
+                        })
+                    }
+                }
+            });
+        });
+    </script>
+    <style>
+
+        .form-group {
+            padding-right: 10px;
+        }
+        /* Full-width input fields */
+        input[type=text], input[type=password], input[type=email] {
+            width: 100%;
+            padding: 15px 50px 15px 10px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+        }
+
+        .select2 .select2-selection--multiple {
+            width: 100% !important;
+            max-width: 635px !important;
+        }
+
+        form {
+            padding-left: 25px;
+        }
+
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .panelForm1 {
+            display: none;
+        }
+
+        .panelForm2 {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.select2').select2({
+                closeOnSelect: false
+            });
+        });
+
+        $(document).ready(function () {
+            $(".stdAdd").click(function () {
+                $(".panelForm").slideToggle("slow");
+                //$(".panel1").hide();
+            });
+            $(".stdDelete").click(function () {
+                $(".panelForm1").slideToggle("slow");
+                //$(".panel1").hide();
+            });
+            $(".stdRoster").click(function () {
+                $(".panelForm2").slideToggle("slow");
+                //$(".panel1").hide();
+            });
+            $(".logout").click(function () {
+                window.location.href = "home";
+            });
+
+        });
+    </script>
+
+    <script type="text/javascript">
+
+
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand">GradeBook</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('student') }}">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="sidebar">
+            <a href="#Add" class="active stdAdd"><i class="fa fa-fw fa-user"></i> Add Student</a><hr />
+            <a href="#Delete" class="courses stdDelete"><i class="fa fa-fw fa-user"></i> Delete Student</a><hr />
+            <a href="#Roster" class="grade stdRoster"><i class="fa fa-fw fa-book"></i> Student Roster</a><hr />
+            <a href="#Help" class="help"><i class="fa fa-fw fa-envelope"></i> Help/Support</a><hr />
+            <a href="#logout" class="logout"><i class="fa fa-fw fa-logout"></i> Logout</a><hr />
+        </div>
+
+        <div class="main jumbotron">
+            <div class="panel">
+                <div class="panel-body panelForm">
+                    <h5>Admin: Student Enrollment</h5>
+                    <hr />
+                    <form action="{{ request.path }}" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="inputFirstName4">First Name:</label>
+                                <input type="text" class="form-control" id="inputFirstName4" name="first_name" placeholder="First Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputLastName4">Last Name:</label>
+                                <input type="text" class="form-control" id="inputLastName4" name="last_name" placeholder="Last Name" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="inputstudentID">studentID:</label>
+                                <input type="text" class="form-control" id="inputstudentID" name="student_id" placeholder="studentID" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail">Email:</label>
+                                <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="inputstudentID">Major:</label>
+                                <input type="text" class="form-control" id="inputMajor" name="major" placeholder="Major" required>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>Course:</label>
+                            <select class="form-control select2 select2-hidden-accessible" multiple="multiple" name="course" data-placeholder="Select a Course" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+                                <option> IS 668 Enterprise-Wide Computing</option>
+                                <option> IS 672 Computer & Network Security</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="padding-left:50px; padding-right:50px;">Save</button>
+                    </form>
+                </div>
+
+                <div class="clear"></div>
+                <div class="panel-body panelForm1">
+                    <hr />
+                    <h5>Delete Student</h5>
+                    <hr />
+                    <table class="table table-striped nowrap" id="tblstudent" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>StudentID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Major</th>
+                                <th>Course</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in Student %}
+                            <tr>
+                                <td>{{ student.student_id }}</td>
+                                <td>{{ student.first_name }}</td>
+                                <td>{{ student.last_name }}</td>
+                                <td>{{ student.email }}</td>
+                                <td>{{ student.major }}</td>
+                                <td>{{ student.course }}</td>
+                                <td><button class="btn btn-link btnDelete" studentid="{{ student.student_id }}">Delete</button></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="clear"></div>
+                <div class="panel-body panelForm2">
+                    <hr />
+                    <h5>Student Roster</h5>
+                    <hr />
+                    <table class="table table-striped" id="stdRoster">
+                        <thead>
+                            <tr>
+                                <th>StudentID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Major</th>
+                                <th>Course</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in Student %}
+                            <tr>
+                                <td>{{ student.student_id }}</td>
+                                <td>{{ student.first_name }}</td>
+                                <td>{{ student.last_name }}</td>
+                                <td>{{ student.email }}</td>
+                                <td>{{ student.major }}</td>
+                                <td>{{ student.course }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(".btnDelete").click(function () {
+        var studentId = $(this).attr('studentid');
+        console.log("result", studentId)
+        var self = this;
+        $.ajax({
+            url: '/Admin/delete/' + studentId,
+            type: 'DELETE',
+            success: function (result) {
+                $(self).parent().parent().remove();
+            }
+        });
+    });
+
+
+</script>
+
